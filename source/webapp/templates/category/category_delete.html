@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}Delete Product{% endblock %}
+{% block content %}
+    <h1>Вы действительно хотите удалить категорию "{{ category.title }}"?</h1>
+    <form method="POST" action="{% url "webapp:category_delete" category.pk %}" class="text-center">
+        {% csrf_token %}
+        <input class="btn btn-dark" type="submit" value="Подтвердить">
+        <a href="{% url "webapp:categories_list" %}" class="btn btn-dark">Отмена</a>
+    </form>
+{% endblock %}

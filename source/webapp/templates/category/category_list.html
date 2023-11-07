@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block nav %}
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'webapp:category_create' %}">Добавить категорию</a>
+        </li>
+{% endblock %}
+
+{% block content %}
+  <h1>Категории</h1>
+
+  <ul class="category-list">
+    {% for category in categories %}
+      <li>
+        <a class="category-link" href="{{ category.id }}">{{ category.title }}</a>
+        {% if category.child_categories.all %}
+          <ul class="sub-categories">
+            {% for sub_category in category.child_categories.all %}
+              <li><a class="category-link" href="{{ sub_category.id }}">{{ sub_category.title }}</a></li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}
