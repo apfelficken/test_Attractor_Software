@@ -17,7 +17,7 @@ class Category(models.Model):
 
 class Article(models.Model):
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True, verbose_name="Категория")
-    user_id = models.ForeignKey(get_user_model(), on_delete=models.SET_DEFAULT, default=1, related_name='articles',
+    user_id = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name='articles',
                                 verbose_name="Автор")
     title = models.CharField(max_length=50, null=False, blank=False, verbose_name="Заголовок")
     description = models.TextField(max_length=3000, null=False, blank=False, verbose_name="Контент")

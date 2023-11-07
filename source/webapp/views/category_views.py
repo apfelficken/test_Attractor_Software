@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse, reverse_lazy
 from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
 from django.views.generic.list import MultipleObjectMixin
@@ -6,7 +7,7 @@ from webapp.forms import CategoryForm
 from webapp.models import Category, Article
 
 
-class CategoryListView(ListView):
+class CategoryListView(LoginRequiredMixin, ListView):
     template_name = 'category/category_list.html'
     context_object_name = 'categories'
     model = Category
@@ -15,7 +16,7 @@ class CategoryListView(ListView):
         return Category.objects.filter(parent_id=None)
 
 
-class CategoryArticleView(DetailView):
+class CategoryArticleView(LoginRequiredMixin, DetailView):
     template_name = 'category/category_detail.html'
     model = Category
     paginate_by = 3
@@ -33,7 +34,7 @@ class CategoryArticleView(DetailView):
         return context
 
 
-class CategoryAddView(CreateView):
+class CategoryAddView(LoginRequiredMixin, CreateView):
     template_name = "category/category_create.html"
     model = Category
     form_class = CategoryForm
@@ -42,7 +43,7 @@ class CategoryAddView(CreateView):
         return reverse('webapp:categories_list')
 
 
-class CategoryUpdateView(UpdateView):
+class CategoryUpdateView(LoginRequiredMixin, UpdateView):
     model = Category
     template_name = 'category/category_update.html'
     form_class = CategoryForm
@@ -52,7 +53,7 @@ class CategoryUpdateView(UpdateView):
         return reverse('webapp:category_detail', kwargs={'pk': self.object.pk})
 
 
-class CategoryDeleteView(DeleteView):
+class CategoryDeleteView(LoginRequiredMixin, DeleteView):
     template_name = 'category/category_delete.html'
     model = Category
     context_object_name = 'category'

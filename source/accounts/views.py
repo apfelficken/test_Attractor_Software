@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from webapp.models import Article
 from django.urls import reverse, reverse_lazy
@@ -6,13 +7,13 @@ from django.views.generic.list import MultipleObjectMixin
 from accounts.forms import UserForm
 
 
-class UserListView(ListView):
+class UserListView(LoginRequiredMixin, ListView):
     model = User
     template_name = 'users/user_list.html'
     context_object_name = 'users'
 
 
-class UserDetailView(DetailView, MultipleObjectMixin):
+class UserDetailView(LoginRequiredMixin, DetailView, MultipleObjectMixin):
     model = User
     template_name = 'users/user_detail.html'
     context_object_name = 'user_obj'
@@ -23,7 +24,7 @@ class UserDetailView(DetailView, MultipleObjectMixin):
         return super().get_context_data(object_list=articles, **kwargs)
 
 
-class UserAddView(CreateView):
+class UserAddView(LoginRequiredMixin, CreateView):
     template_name = "users/user_create.html"
     model = User
     form_class = UserForm
@@ -32,7 +33,7 @@ class UserAddView(CreateView):
         return reverse('accounts:user_list')
 
 
-class UserUpdateView(UpdateView):
+class UserUpdateView(LoginRequiredMixin, UpdateView):
     model = User
     template_name = 'users/user_update.html'
     form_class = UserForm
@@ -42,7 +43,7 @@ class UserUpdateView(UpdateView):
         return reverse('accounts:user_detail', kwargs={'pk': self.object.pk})
 
 
-class UserDeleteView(DeleteView):
+class UserDeleteView(LoginRequiredMixin, DeleteView):
     template_name = 'users/user_delete.html'
     model = User
     context_object_name = 'user'
