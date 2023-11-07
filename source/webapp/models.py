@@ -21,7 +21,7 @@ class Article(models.Model):
                                 verbose_name="Автор")
     title = models.CharField(max_length=50, null=False, blank=False, verbose_name="Заголовок")
     description = models.TextField(max_length=3000, null=False, blank=False, verbose_name="Контент")
-    image = models.ImageField(null=True, blank=True, upload_to='product_pics', verbose_name='Изображение')
+    image = models.ImageField(null=True, blank=True, upload_to='article_pics', verbose_name='Изображение')
 
     def __str__(self):
         return f'{self.pk}. {self.title}'

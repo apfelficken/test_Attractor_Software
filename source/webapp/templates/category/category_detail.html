@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 
 {% block nav %}
-     <li class="nav-item">
-        <a class="nav-link text-white" href="#">Добавить новость</a>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'webapp:article_create' %}">Добавить статью</a>
     </li>
 {% endblock %}
 
@@ -18,11 +18,11 @@
             </a>
         </h1>
     </div>
-    {% if object_list %}
+    {% if articles %}
         <h2>Статьи:</h2>
 
          <div class="row">
-            {% for article in object_list %}
+            {% for article in articles %}
                 <div class="col-sm-4 my-3">
                     <div class="card">
                         <div class="card-header bg-dark text-white">
@@ -30,10 +30,35 @@
                         </div>
                         <div class="card-body">
                             <p>Автор: {{ article.user_id }}</p>
+                            <p>
+                                Категория: <a href="{% url 'webapp:category_detail' article.category.pk %} ">{{ article.category }}</a>
+                            </p>
                             <p class="card-text">
                                 {{ article.description|truncatewords:20|linebreaks }}
                             </p>
-                            <a href="{{ article.id }} " class="btn btn-dark">далее...</a>
+                           <a href="{% url 'webapp:article_detail' article.pk %} " class="btn btn-dark">далее...</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+         </div></br>
+    {% endif %}
+     {% if child_category_articles %}
+        {% for article in child_category_articles %}
+                <div class="col-sm-4 my-3">
+                    <div class="card">
+                        <div class="card-header bg-dark text-white">
+                            <h3 class="card-title">{{ article.title }}</h3>
+                        </div>
+                        <div class="card-body">
+                            <p>Автор: {{ article.user_id }}</p>
+                            <p>
+                                Категория: <a href="{% url 'webapp:category_detail' article.category.pk %} ">{{ article.category }}</a>
+                            </p>
+                            <p class="card-text">
+                                {{ article.description|truncatewords:20|linebreaks }}
+                            </p>
+                           <a href="{% url 'webapp:article_detail' article.pk %} " class="btn btn-dark">далее...</a>
                         </div>
                     </div>
                 </div>

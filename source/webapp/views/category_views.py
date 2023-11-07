@@ -15,16 +15,21 @@ class CategoryListView(ListView):
         return Category.objects.filter(parent_id=None)
 
 
-class CategoryArticleView(DetailView, MultipleObjectMixin):
+class CategoryArticleView(DetailView):
     template_name = 'category/category_detail.html'
     model = Category
     paginate_by = 3
 
     def get_context_data(self, **kwargs):
-        object_list = Article.objects.filter(category=self.get_object())
-        context = super(CategoryArticleView, self).get_context_data(object_list=object_list, **kwargs)
-        categories = Category.objects.all()
-        context['categories'] = categories
+        context = super().get_context_data(**kwargs)
+        current_category = self.get_object()
+        child_categories = Category.objects.filter(parent_id=current_category.id)
+        articles = Article.objects.filter(category=current_category)
+        child_category_articles = Article.objects.filter(category__in=child_categories)
+
+        context['articles'] = articles
+        context['child_category_articles'] = child_category_articles
+
         return context
 
 

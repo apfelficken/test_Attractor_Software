@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>Вы действительно хотите удалить статью "{{ article.title }}"?</h1>
+    <form method="POST" action="{% url "webapp:article_delete" article.pk %}" class="text-center">
+        {% csrf_token %}
+        <input class="btn btn-dark" type="submit" value="Подтвердить">
+        <a href="{% url "webapp:article_list" %}" class="btn btn-dark">Отмена</a>
+    </form>
+{% endblock %}

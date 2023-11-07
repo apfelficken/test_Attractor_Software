@@ -1,5 +1,4 @@
 {% extends "base.html" %}
-{% block title %}Delete Product{% endblock %}
 {% block content %}
     <h1>Вы действительно хотите удалить категорию "{{ category.title }}"?</h1>
     <form method="POST" action="{% url "webapp:category_delete" category.pk %}" class="text-center">
