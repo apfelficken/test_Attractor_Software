@@ -11,10 +11,8 @@
                         <h3 class="card-title">{{ article.title }}</h3>
                     </div>
                     <div class="card-body">
-                        <p>
-                            {{ article.user_id }}
-                        </p>
-                        <p class="card-text">
+                        <p><a href="{% url 'accounts:user_detail' article.user_id.id %}">{{ article.user_id }}</a></p>
+                            <p class="card-text">
                             {{ article.description|truncatewords:20|linebreaks }}
                         </p>
                         <a href="{% url 'webapp:article_detail' article.pk %} " class="btn btn-dark">еще..</a>

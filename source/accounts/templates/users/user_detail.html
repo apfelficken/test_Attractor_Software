@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block nav %}
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'accounts:user_update' user_obj.pk %}">Обновить данные пользователя</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'accounts:user_delete' user_obj.pk %}">Удалить пользователя</a>
+    </li>
+{% endblock %}
+
+{% block content %}
+
+    <h1>Статьи пользователя {{user_obj.username}}:</h1>
+    <div class="row">
+        {% if object_list %}
+            {% for article in object_list %}
+                <div class="col-sm-4 my-3">
+                    <div class="card">
+                        <div class="card-header bg-dark text-white">
+                            <h3 class="card-title">{{ article.title }}</h3>
+                        </div>
+                        <div class="card-body">
+                            <p><a href="{% url 'accounts:user_detail' article.user_id.id %}">{{ article.user_id }}</a></p>
+                            <p class="card-text">
+                                {{ article.description|truncatewords:20|linebreaks }}
+                            </p>
+                            <a href="{% url 'webapp:article_detail' article.pk %} " class="btn btn-dark">еще..</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+        <p>У этого пользователя пока нет статей..</p>
+        {% endif %}
+    </div></br>
+    {% if is_paginated %}
+        {% include 'partial/pagination.html' %}
+    {% endif %}
+{% endblock %}

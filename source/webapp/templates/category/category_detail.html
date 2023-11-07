@@ -29,8 +29,7 @@
                             <h3 class="card-title">{{ article.title }}</h3>
                         </div>
                         <div class="card-body">
-                            <p>Автор: {{ article.user_id }}</p>
-                            <p>
+                            <p><a href="{% url 'accounts:user_detail' article.user_id.id %}">{{ article.user_id }}</a></p><p>
                                 Категория: <a href="{% url 'webapp:category_detail' article.category.pk %} ">{{ article.category }}</a>
                             </p>
                             <p class="card-text">
@@ -51,7 +50,7 @@
                             <h3 class="card-title">{{ article.title }}</h3>
                         </div>
                         <div class="card-body">
-                            <p>Автор: {{ article.user_id }}</p>
+                            <p><a href="{% url 'accounts:user_detail' article.user_id.id %}">{{ article.user_id }}</a></p>
                             <p>
                                 Категория: <a href="{% url 'webapp:category_detail' article.category.pk %} ">{{ article.category }}</a>
                             </p>
