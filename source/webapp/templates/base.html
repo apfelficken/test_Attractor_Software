@@ -36,12 +36,22 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{% url 'accounts:user_list' %}">Пользователи</a>
                             </li>
+                            <li class="nav-item">
                                 <a class="btn btn-dark ms-2" href="{% url 'accounts:logout' %}?next={{ request.get_full_path }}">Выйти</a>
+                            </li>
                             {% else %}
                                 <li class="nav-item">
                                     <a class="nav-link" href="{% url 'accounts:user_create' %}">Регистрация</a>
                                 </li>
-                                <a class="btn btn-dark ms-auto" href="{% url 'accounts:login' %}?next={% if request.GET.next  %}{{ request.GET.next }}{% else %}{{ request.get_full_path }}{% endif %}">Войти</a>
+                                <li class="nav-item">
+                                    <a class="btn btn-dark ms-auto" href="{% url 'accounts:login' %}?next={% if request.GET.next  %}{{ request.GET.next }}{% else %}{{ request.get_full_path }}{% endif %}">Войти</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="btn btn-dark ms-auto" href="{% url 'api_v1:article_api' %}">Статьи</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="btn btn-dark ms-auto" href="{% url 'api_v1:category_api' %}">Категории</a>
+                                </li>
                             {% endif %}
                     </ul>
                 </div>

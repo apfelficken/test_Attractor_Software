@@ -62,8 +62,11 @@
                     </div>
                 </div>
             {% endfor %}
-         </div></br>
-    {% else %}
+    {% if is_paginated %}
+        {% include 'partial/pagination.html' %}
+    {% endif %}
+    {% endif %}
+    {% if not articles and not child_category_articles %}
             <p class="text-center m-3 p-3">В данном разделе пока нет новостей...</p>
     {% endif %}
 {% endblock %}
