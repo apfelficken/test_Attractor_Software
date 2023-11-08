@@ -1,18 +1,18 @@
 {% extends 'base.html' %}
-{% if request.user.is_superuser %}
-{% block nav %}
-    <li class="nav-item">
-        <a class="nav-link" href="{% url 'accounts:user_update' user_obj.pk %}">Обновить данные пользователя</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="{% url 'accounts:user_delete' user_obj.pk %}">Удалить пользователя</a>
-    </li>
-{% endblock %}
-{% endif %}
-
 {% block content %}
 
-    <h1>Статьи пользователя {{user_obj.username}}:</h1>
+    <h1>
+        {{user_obj.username}}
+        {% if request.user == user_obj %}
+            <a href="{% url 'accounts:user_update' user_obj.pk %}" class="btn btn-dark">
+                <i class="bi bi-pencil-square"></i>
+            </a>
+            <a href="{% url 'accounts:user_delete' user_obj.pk %}" class="btn btn-dark">
+                <i class="bi bi-trash3"></i>
+            </a>
+        {% endif %}
+    </h1>
+    <h3>Статьи пользователя {{user_obj.username}}:</h3>
     <div class="row">
         {% if object_list %}
             {% for article in object_list %}
